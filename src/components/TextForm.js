@@ -8,10 +8,10 @@ export default function TextForm(props) {
     props.showAlert("Converted to Upper Case", "success");
   };
   const handleCopy = () => {
-    var text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
-    document.getSelection().removeAllRanges();
+    // var text = document.getElementById("myBox");
+    // text.select();
+    navigator.clipboard.writeText(text);
+    // document.getSelection().removeAllRanges();
     props.showAlert("Text Copied", "success");
   };
   const handleLowClick = () => {
@@ -41,18 +41,18 @@ export default function TextForm(props) {
         style={{ color: props.mode === "dark" ? "white" : "black" }}
       >
         <h1>{props.heading}</h1>
+        <textarea
+          className="form-control my-2"
+          placeholder="Leave a comment here"
+          id="myBox"
+          value={text}
+          onChange={handleOnChange}
+          style={{
+            background: props.mode === "dark" ? "grey" : "white",
+            color: props.mode === "dark" ? "white" : "black",
+          }}
+        ></textarea>
         <div className="form-floating">
-          <textarea
-            className="form-control my-2"
-            placeholder="Leave a comment here"
-            id="myBox"
-            value={text}
-            onChange={handleOnChange}
-            style={{
-              background: props.mode === "dark" ? "grey" : "white",
-              color: props.mode === "dark" ? "white" : "black",
-            }}
-          ></textarea>
           <button
             disabled={text.length === 0}
             className="btn btn-primary mx-1 my-1"
@@ -105,7 +105,7 @@ export default function TextForm(props) {
         </p>
         <p>
           {0.008 *
-            text.split(" ").filter((element) => {
+            text.split(/\s+/).filter((element) => {
               return element.length !== 0;
             }).length}{" "}
           Minute to Read Contain
